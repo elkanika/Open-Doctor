@@ -1,0 +1,53 @@
+es:
+  devise:
+    confirmations:
+      confirmed: Tu cuenta fue confirmada.
+      send_instructions: Vas a recibir un email con instrucciones sobre cómo confirmar tu cuenta.
+      send_paranoid_instructions: Si tu email existe en nuestra base de datos, vas a recibir un email con instrucciones sobre cómo confirmar tu cuenta.
+    failure:
+      already_authenticated: Ya iniciaste sesión.
+      inactive: Tu cuenta todavía no fue activada.
+      invalid: "%{authentication_keys} o contraseña inválidos."
+      locked: Tu cuenta está bloqueada.
+      last_attempt: Tenés un intento más antes de que tu cuenta sea bloqueada.
+      not_found_in_database: "%{authentication_keys} o contraseña inválidos."
+      timeout: Tu sesión expiró. Iniciá sesión nuevamente para continuar.
+      unauthenticated: Tenés que iniciar sesión o registrarte para continuar.
+      unconfirmed: Tenés que confirmar tu cuenta para continuar.
+    mailer:
+      confirmation_instructions:
+        subject: Instrucciones de confirmación
+      reset_password_instructions:
+        subject: Instrucciones para restablecer tu contraseña
+      unlock_instructions:
+        subject: Instrucciones para desbloquear tu cuenta
+      email_changed:
+        subject: Email cambiado
+      password_change:
+        subject: Contraseña cambiada
+    omniauth_callbacks:
+      failure: No se pudo autenticar desde %{kind} porque "%{reason}".
+      success: Autenticado correctamente desde %{kind}.
+    passwords:
+      no_token: No se puede acceder a esta página sin venir de un email de restablecimiento de contraseña.
+      send_instructions: Vas a recibir un email con instrucciones sobre cómo restablecer tu contraseña.
+      send_paranoid_instructions: Si tu email existe en nuestra base de datos, vas a recibir un email con instrucciones.
+      updated: Tu contraseña fue cambiada. Ya iniciaste sesión.
+      updated_not_active: Tu contraseña fue cambiada.
+    registrations:
+      destroyed: Tu cuenta fue cancelada. Esperamos verte de nuevo pronto.
+      signed_up: Bienvenido/a. Tu cuenta fue creada.
+      signed_up_but_inactive: Tu cuenta fue creada, pero no podés iniciar sesión porque todavía no fue activada.
+      signed_up_but_locked: Tu cuenta fue creada, pero no podés iniciar sesión porque está bloqueada.
+      signed_up_but_unconfirmed: Un mensaje con un enlace de confirmación fue enviado a tu email. Confirmá tu cuenta para continuar.
+      update_needs_confirmation: Actualizaste tu cuenta, pero necesitamos verificar tu nuevo email. Revisá tu casilla y confirmá tu nuevo email.
+      updated: Tu cuenta fue actualizada.
+      updated_but_not_signed_in: Tu cuenta fue actualizada, pero como tu contraseña cambió, necesitás iniciar sesión nuevamente.
+    sessions:
+      signed_in: Sesión iniciada.
+      signed_out: Sesión cerrada.
+      already_signed_out: Sesión cerrada.
+    unlocks:
+      send_instructions: Vas a recibir un email con instrucciones sobre cómo desbloquear tu cuenta.
+      send_paranoid_instructions: Si tu cuenta existe, vas a recibir un email con instrucciones.
+      unlocked: Tu cuenta fue desbloqueada. Iniciá sesión para continuar.

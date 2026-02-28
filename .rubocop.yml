@@ -1,0 +1,36 @@
+# Inherit from the Omakase config that ships with Rails
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+require:
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+
+# Permitimos clases más grandes en modelos con lógica de negocio
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+    - "app/models/**/*"
+
+Metrics/MethodLength:
+  Max: 20
+
+# RSpec
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+# Rails
+Rails/I18nLocaleTexts:
+  Enabled: false
