@@ -41,7 +41,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # === Autenticación y Autorización ===
-gem "devise", "~> 4.9"          # Autenticación de usuarios
+gem "devise", "~> 5.0"          # Autenticación de usuarios
 gem "pundit", "~> 2.4"          # Autorización basada en políticas
 
 # === Multitenancy ===
