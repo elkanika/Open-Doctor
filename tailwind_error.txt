@@ -1,0 +1,35 @@
+Ôëê tailwindcss v4.2.0
+
+Error: Cannot apply unknown utility class `card`
+bin/rails aborted!
+Command failed with exit 1: D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/tailwindcss-ruby-4.2.0-x64-mingw-ucrt/exe/x64-mingw-ucrt/tailwindcss
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/tailwindcss-rails-4.4.0/lib/tasks/build.rake:11:in 'Kernel#system'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/tailwindcss-rails-4.4.0/lib/tasks/build.rake:11:in 'block (2 levels) in <main>'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:281:in 'block in Rake::Task#execute'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:281:in 'Array#each'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:281:in 'Rake::Task#execute'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:219:in 'block in Rake::Task#invoke_with_call_chain'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:199:in 'Monitor#synchronize'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:199:in 'Rake::Task#invoke_with_call_chain'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/task.rb:188:in 'Rake::Task#invoke'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:188:in 'Rake::Application#invoke_task'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:138:in 'block (2 levels) in Rake::Application#top_level'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:138:in 'Array#each'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:138:in 'block in Rake::Application#top_level'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:147:in 'Rake::Application#run_with_threads'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:132:in 'Rake::Application#top_level'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands/rake/rake_command.rb:27:in 'block (2 levels) in Rails::Command::RakeCommand.perform'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/application.rb:214:in 'Rake::Application#standard_exception_handling'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands/rake/rake_command.rb:27:in 'block in Rails::Command::RakeCommand.perform'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands/rake/rake_command.rb:44:in 'block in Rails::Command::RakeCommand.with_rake'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/rake-13.3.1/lib/rake/rake_module.rb:59:in 'Rake.with_application'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands/rake/rake_command.rb:41:in 'Rails::Command::RakeCommand.with_rake'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands/rake/rake_command.rb:20:in 'Rails::Command::RakeCommand.perform'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/command.rb:150:in 'Rails::Command.invoke_rake'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/command.rb:67:in 'block in Rails::Command.invoke'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/command.rb:143:in 'Rails::Command.with_argv'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/command.rb:63:in 'Rails::Command.invoke'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/railties-8.1.2/lib/rails/commands.rb:18:in '<main>'
+D:/coding/open-doctor/vendor/bundle/ruby/3.4.0/gems/bootsnap-1.23.0/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in 'Kernel#require'
+Tasks: TOP => tailwindcss:build
+(See full trace by running task with --trace)

@@ -1,0 +1,38 @@
+D:/Ruby34-x64/lib/ruby/3.4.0/win32/registry.rb:2: warning: D:/Ruby34-x64/lib/ruby/3.4.0/fiddle/import.rb is found in fiddle, which will no longer be part of the default gems starting from Ruby 3.5.0.
+You can add fiddle to your Gemfile or gemspec to silence this warning.
+      PaperTrail 16.0.0 is not compatible with ActiveRecord 8.1.2. We allow PT
+      contributors to install incompatible versions of ActiveRecord, and this
+      warning can be silenced with an environment variable, but this is a bad
+      idea for normal use. Please install a compatible version of ActiveRecord
+      instead (>= 6.1, < 8.1). Please see the discussion in paper_trail/compatibility.rb
+      for details.
+
+Clients
+  GET /clients
+    when logged in as user of Studio A
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+      shows only clients from Studio A
+  GET /clients/:id
+    when logged in as user of Studio A
+      can view a client from Studio A
+      cannot view a client from Studio B (redirects due to Pundit) (FAILED - 1)
+  POST /clients
+    creates a client assigned to Studio A
+
+Failures:
+
+  1) Clients GET /clients/:id when logged in as user of Studio A cannot view a client from Studio B (redirects due to Pundit)
+     Failure/Error: expect(response).to redirect_to(root_path)
+       Expected response to be a <3XX: redirect>, but was a <404: Not Found>
+     # ./spec/requests/clients_spec.rb:42:in 'block (4 levels) in <top (required)>'
+
+Finished in 3.66 seconds (files took 18.52 seconds to load)
+4 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/requests/clients_spec.rb:40 # Clients GET /clients/:id when logged in as user of Studio A cannot view a client from Studio B (redirects due to Pundit)
+

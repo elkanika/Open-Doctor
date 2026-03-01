@@ -1,0 +1,94 @@
+<%= form_with(model: [deadline.expediente, deadline], url: deadline.persisted? ? deadline_path(deadline) : expediente_deadlines_path(deadline.expediente), class: "space-y-6") do |f| %>
+  <% if deadline.errors.any? %>
+    <div class="flash flash-alert">
+      <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      <div>
+        <p class="font-medium"><%= pluralize(deadline.errors.count, "error") %>:</p>
+        <ul class="list-disc list-inside mt-1 text-sm">
+          <% deadline.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :expediente_id %>
+
+  <div class="form-group">
+    <%= f.label :title, "Título del plazo", class: "form-label" %>
+    <%= f.text_field :title, class: "form-input", required: true, placeholder: "Ej: Contestar demanda" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "Descripción", class: "form-label" %>
+    <%= f.text_area :description, class: "form-textarea", rows: 2 %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="form-group">
+      <%= f.label :party, "Parte", class: "form-label" %>
+      <%= f.select :party, options_for_select([["Propio", "propio"], ["Contraria", "contraria"]], deadline.party), {}, class: "form-select" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :priority, "Prioridad", class: "form-label" %>
+      <%= f.select :priority, options_for_select([["Normal", "normal"], ["Alta", "alta"], ["Urgente", "urgente"]], deadline.priority), {}, class: "form-select" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status, "Estado", class: "form-label" %>
+      <%= f.select :status, options_for_select([["Pendiente", "pendiente"], ["Cumplido", "cumplido"], ["Vencido", "vencido"], ["Suspendido", "suspendido"]], deadline.status), {}, class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="form-group">
+      <%= f.label :starts_on, "Fecha de inicio", class: "form-label" %>
+      <%= f.date_field :starts_on, class: "form-input" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :due_on, "Fecha de vencimiento", class: "form-label" %>
+      <%= f.date_field :due_on, class: "form-input", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :days_count, "Días del plazo", class: "form-label" %>
+      <%= f.number_field :days_count, class: "form-input", min: 1 %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="form-group">
+      <label class="flex items-center gap-2 text-sm text-gray-700">
+        <%= f.check_box :business_days, class: "rounded border-gray-300 text-primary-600 focus:ring-primary-500" %>
+        Días hábiles
+      </label>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :alert_days_before, "Alertar con anticipación (días)", class: "form-label" %>
+      <%= f.number_field :alert_days_before, class: "form-input", min: 0, value: deadline.alert_days_before || 2 %>
+    </div>
+  </div>
+
+  <fieldset class="border border-gray-200 rounded-lg p-4">
+    <legend class="text-sm font-semibold text-gray-700 px-2">Dependencia de evento externo (opcional)</legend>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+      <div class="form-group !mb-0">
+        <%= f.label :depends_on_event, "Evento", class: "form-label" %>
+        <%= f.text_field :depends_on_event, class: "form-input", placeholder: "Ej: Notificación de sentencia" %>
+      </div>
+      <div class="form-group !mb-0">
+        <%= f.label :event_date, "Fecha del evento", class: "form-label" %>
+        <%= f.date_field :event_date, class: "form-input" %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+    <%= f.submit deadline.persisted? ? "Actualizar plazo" : "Crear plazo", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", deadline.expediente, class: "btn btn-secondary" %>
+  </div>
+<% end %>

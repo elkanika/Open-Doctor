@@ -51,3 +51,8 @@ es:
       send_instructions: Vas a recibir un email con instrucciones sobre cómo desbloquear tu cuenta.
       send_paranoid_instructions: Si tu cuenta existe, vas a recibir un email con instrucciones.
       unlocked: Tu cuenta fue desbloqueada. Iniciá sesión para continuar.
+  errors:
+    messages:
+      not_saved:
+        one: "Acabás de tener 1 error:"
+        other: "Tuviste %{count} errores:"

@@ -1,0 +1,60 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="text-center mb-6">
+      <div class="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+        </svg>
+      </div>
+      <h2 class="auth-title">Crear Cuenta</h2>
+      <p class="auth-subtitle">Registrate en Open Doctor</p>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group !mb-0">
+          <%= f.label :first_name, "Nombre", class: "form-label" %>
+          <%= f.text_field :first_name, autofocus: true, class: "form-input", placeholder: "Juan" %>
+        </div>
+        <div class="form-group !mb-0">
+          <%= f.label :last_name, "Apellido", class: "form-label" %>
+          <%= f.text_field :last_name, class: "form-input", placeholder: "Pérez" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :studio_id, "Estudio Jurídico", class: "form-label" %>
+        <%= f.collection_select :studio_id, Studio.order(:name), :id, :name, { prompt: "Seleccioná tu estudio..." }, class: "form-select" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, "Email", class: "form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input", placeholder: "tu@email.com" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Contraseña", class: "form-label" %>
+        <% if @minimum_password_length %>
+          <span class="text-xs text-gray-500">(mínimo <%= @minimum_password_length %> caracteres)</span>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-input", placeholder: "••••••••" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirmar Contraseña", class: "form-label" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input", placeholder: "••••••••" %>
+      </div>
+
+      <div class="pt-2">
+        <%= f.submit "Registrarse", class: "btn btn-primary w-full" %>
+      </div>
+    <% end %>
+
+    <p class="text-center text-sm text-gray-500 mt-6">
+      ¿Ya tenés cuenta?
+      <%= link_to "Iniciá sesión", new_session_path(resource_name), class: "text-primary-600 hover:text-primary-700 font-medium" %>
+    </p>
+  </div>
+</div>

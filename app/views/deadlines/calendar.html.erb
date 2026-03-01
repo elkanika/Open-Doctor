@@ -1,0 +1,30 @@
+<% content_for(:page_title, "Calendario de Plazos") %>
+
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Calendario de Plazos</h1>
+    <p class="page-subtitle">Vista mensual de vencimientos y audiencias</p>
+  </div>
+  <div class="flex items-center gap-2">
+    <%= link_to "Vista de lista", deadlines_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<%= month_calendar(events: @deadlines, attribute: :start_time, end_attribute: :start_time) do |date, deadlines| %>
+  <div class="p-2 h-full min-h-[100px] flex flex-col">
+    <div class="text-right">
+      <span class="text-sm font-medium <%= date == Date.current ? 'bg-primary-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center' : 'text-gray-500' %>">
+        <%= date.day %>
+      </span>
+    </div>
+
+    <div class="flex-1 mt-2 space-y-1 overflow-y-auto pr-1">
+      <% deadlines.sort_by(&:priority).reverse.each do |dl| %>
+        <%= link_to dl.expediente, class: "block p-1.5 text-xs rounded border hover:opacity-80 transition-opacity truncate #{calendar_badge_classes(dl)}" do %>
+          <div class="font-medium truncate"><%= dl.title %></div>
+          <div class="truncate opacity-90"><%= dl.expediente.caratula.truncate(20) %></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

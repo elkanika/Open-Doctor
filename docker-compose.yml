@@ -1,12 +1,27 @@
 version: '3.8'
 
 services:
+  web:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/open_doctor_production
+      - RAILS_ENV=production
+      # Seguridad mínima para arrancar el contenedor localmente.
+      # ¡ATENCIÓN! Cambiar en un entorno de producción real en internet.
+      - SECRET_KEY_BASE=open_doctor_secret_please_change_me_in_production_1234567890
+    depends_on:
+      - db
+    restart: unless-stopped
+
   db:
     image: postgres:15-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: open_doctor_production
     ports:
       - "5432:5432"
     volumes:

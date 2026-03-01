@@ -1,0 +1,50 @@
+D:/Ruby34-x64/lib/ruby/3.4.0/win32/registry.rb:2: warning: D:/Ruby34-x64/lib/ruby/3.4.0/fiddle/import.rb is found in fiddle, which will no longer be part of the default gems starting from Ruby 3.5.0.
+You can add fiddle to your Gemfile or gemspec to silence this warning.
+      PaperTrail 16.0.0 is not compatible with ActiveRecord 8.1.2. We allow PT
+      contributors to install incompatible versions of ActiveRecord, and this
+      warning can be silenced with an environment variable, but this is a bad
+      idea for normal use. Please install a compatible version of ActiveRecord
+      instead (>= 6.1, < 8.1). Please see the discussion in paper_trail/compatibility.rb
+      for details.
+FFFF
+
+Failures:
+
+  1) Clients GET /clients when logged in as user of Studio A shows only clients from Studio A
+     Failure/Error: before { sign_in user_a }
+
+     RuntimeError:
+       Could not find a valid mapping for #<User id: 12, created_at: "2026-02-28 19:13:21.660644000 -0300", email: [FILTERED], first_name: "Natalia", last_name: "Borrego", matricula: "T39 F80", phone: "917.494.677", role: "titular", studio_id: 26, updated_at: "2026-02-28 19:13:21.660644000 -0300">
+     # ./spec/requests/clients_spec.rb:20:in 'block (4 levels) in <top (required)>'
+
+  2) Clients GET /clients/:id when logged in as user of Studio A can view a client from Studio A
+     Failure/Error: before { sign_in user_a }
+
+     RuntimeError:
+       Could not find a valid mapping for #<User id: 13, created_at: "2026-02-28 19:13:21.711791000 -0300", email: [FILTERED], first_name: "Amalia", last_name: "Vela", matricula: "T86 F173", phone: "932356058", role: "titular", studio_id: 28, updated_at: "2026-02-28 19:13:21.711791000 -0300">
+     # ./spec/requests/clients_spec.rb:33:in 'block (4 levels) in <top (required)>'
+
+  3) Clients GET /clients/:id when logged in as user of Studio A cannot view a client from Studio B (raises RecordNotFound because of acts_as_tenant scoping)
+     Failure/Error: before { sign_in user_a }
+
+     RuntimeError:
+       Could not find a valid mapping for #<User id: 14, created_at: "2026-02-28 19:13:21.772601000 -0300", email: [FILTERED], first_name: "Jos├® Eduardo", last_name: "Guevara", matricula: "T42 F68", phone: "926.128.513", role: "titular", studio_id: 30, updated_at: "2026-02-28 19:13:21.772601000 -0300">
+     # ./spec/requests/clients_spec.rb:33:in 'block (4 levels) in <top (required)>'
+
+  4) Clients POST /clients creates a client assigned to Studio A
+     Failure/Error: before { sign_in user_a }
+
+     RuntimeError:
+       Could not find a valid mapping for #<User id: 15, created_at: "2026-02-28 19:13:21.829506000 -0300", email: [FILTERED], first_name: "Berta", last_name: "Cisneros", matricula: "T51 F166", phone: "985-096-334", role: "titular", studio_id: 32, updated_at: "2026-02-28 19:13:21.829506000 -0300">
+     # ./spec/requests/clients_spec.rb:49:in 'block (3 levels) in <top (required)>'
+
+Finished in 1.67 seconds (files took 13.73 seconds to load)
+4 examples, 4 failures
+
+Failed examples:
+
+rspec ./spec/requests/clients_spec.rb:22 # Clients GET /clients when logged in as user of Studio A shows only clients from Studio A
+rspec ./spec/requests/clients_spec.rb:35 # Clients GET /clients/:id when logged in as user of Studio A can view a client from Studio A
+rspec ./spec/requests/clients_spec.rb:40 # Clients GET /clients/:id when logged in as user of Studio A cannot view a client from Studio B (raises RecordNotFound because of acts_as_tenant scoping)
+rspec ./spec/requests/clients_spec.rb:51 # Clients POST /clients creates a client assigned to Studio A
+

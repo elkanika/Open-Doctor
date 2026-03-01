@@ -1,0 +1,43 @@
+D:/Ruby34-x64/lib/ruby/3.4.0/win32/registry.rb:2: warning: D:/Ruby34-x64/lib/ruby/3.4.0/fiddle/import.rb is found in fiddle, which will no longer be part of the default gems starting from Ruby 3.5.0.
+You can add fiddle to your Gemfile or gemspec to silence this warning.
+      PaperTrail 16.0.0 is not compatible with ActiveRecord 8.1.2. We allow PT
+      contributors to install incompatible versions of ActiveRecord, and this
+      warning can be silenced with an environment variable, but this is a bad
+      idea for normal use. Please install a compatible version of ActiveRecord
+      instead (>= 6.1, < 8.1). Please see the discussion in paper_trail/compatibility.rb
+      for details.
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20260228222249_create_active_storage_tables.active_storage.rb
+
+While loading ./spec/jobs/check_upcoming_deadlines_job_spec.rb an `exit` / `raise SystemExit` occurred, RSpec will now quit.
+Failure/Error: abort e.to_s.strip
+
+SystemExit:
+  Migrations are pending. To resolve this issue, run:
+
+          bin/rails db:migrate
+
+  You have 1 pending migration:
+
+  db/migrate/20260228222249_create_active_storage_tables.active_storage.rb
+# ./spec/rails_helper.rb:16:in 'Kernel#abort'
+# ./spec/rails_helper.rb:16:in '<top (required)>'
+# ./spec/jobs/check_upcoming_deadlines_job_spec.rb:1:in '<top (required)>'
+# ------------------
+# --- Caused by: ---
+# ActiveRecord::PendingMigrationError:
+#   
+#   
+#   Migrations are pending. To resolve this issue, run:
+#   
+#           bin/rails db:migrate
+#   
+#   You have 1 pending migration:
+#   
+#   db/migrate/20260228222249_create_active_storage_tables.active_storage.rb
+#   ./spec/rails_helper.rb:14:in '<top (required)>'

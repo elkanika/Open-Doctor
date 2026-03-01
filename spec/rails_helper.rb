@@ -43,4 +43,7 @@ RSpec.configure do |config|
   # Devise test helpers
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
+  
+  # Warden test helpers
+  config.include Warden::Test::Helpers
 end

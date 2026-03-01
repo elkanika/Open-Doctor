@@ -1,28 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <title><%= content_for(:title) || "Open Doctor" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Sistema de Gestión Jurídica Open Source">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Open Doctor">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <%# Layout con sidebar para usuarios autenticados %>
+      <%= render "shared/sidebar" %>
+
+      <div class="main-content">
+        <header class="main-header">
+          <div>
+            <h1 class="text-lg font-semibold text-gray-900"><%= yield(:page_title) || "Open Doctor" %></h1>
+            <% if content_for?(:page_subtitle) %>
+              <p class="text-sm text-gray-500"><%= yield(:page_subtitle) %></p>
+            <% end %>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-500"><%= current_user.full_name %></span>
+            <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "btn btn-secondary btn-sm" %>
+          </div>
+        </header>
+
+        <main class="main-body">
+          <div class="mb-4">
+            <%= render "shared/flash" %>
+          </div>
+          <%= yield %>
+        </main>
+      </div>
+    <% else %>
+      <%# Layout sin sidebar para páginas de auth %>
+      <%= render "shared/flash" %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

@@ -1,0 +1,87 @@
+<% content_for(:page_title, "Plazos") %>
+
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Plazos y Vencimientos</h1>
+    <p class="page-subtitle">Gestión unificada de plazos de todos los expedientes</p>
+  </div>
+  <div class="flex items-center gap-2">
+    <%= link_to "Vista calendario", calendar_deadlines_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<%# Filtros rápidos %>
+<div class="flex items-center gap-2 mb-6 flex-wrap">
+  <%= link_to "Todos", deadlines_path, class: "btn #{@filter.blank? ? 'btn-primary' : 'btn-secondary'} btn-sm" %>
+  <%= link_to "Propios", deadlines_path(filter: "propios"), class: "btn #{@filter == 'propios' ? 'btn-primary' : 'btn-secondary'} btn-sm" %>
+  <%= link_to "Contraria", deadlines_path(filter: "contraria"), class: "btn #{@filter == 'contraria' ? 'btn-primary' : 'btn-secondary'} btn-sm" %>
+  <%= link_to "Próximos 7 días", deadlines_path(filter: "proximos"), class: "btn #{@filter == 'proximos' ? 'btn-primary' : 'btn-secondary'} btn-sm" %>
+  <%= link_to "Urgentes", deadlines_path(filter: "urgentes"), class: "btn #{@filter == 'urgentes' ? 'btn-danger' : 'btn-secondary'} btn-sm" %>
+  <%= link_to "Vencidos", deadlines_path(filter: "vencidos"), class: "btn #{@filter == 'vencidos' ? 'btn-danger' : 'btn-secondary'} btn-sm" %>
+</div>
+
+<%# Tabla de plazos %>
+<div class="card">
+  <div class="table-container">
+    <% if @deadlines.any? %>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Plazo</th>
+            <th>Expediente</th>
+            <th>Parte</th>
+            <th>Inicio</th>
+            <th>Vencimiento</th>
+            <th>Estado</th>
+            <th>Restante</th>
+            <th>Prioridad</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @deadlines.each do |dl| %>
+            <tr>
+              <td class="!px-2"><%= priority_bar(dl.priority) %></td>
+              <td>
+                <p class="font-medium text-sm"><%= dl.title %></p>
+                <% if dl.description.present? %>
+                  <p class="text-xs text-gray-500 truncate max-w-xs"><%= dl.description.truncate(60) %></p>
+                <% end %>
+              </td>
+              <td class="text-sm">
+                <%= link_to dl.expediente.caratula.truncate(35), dl.expediente, class: "text-primary-600 hover:underline" %>
+              </td>
+              <td><%= party_badge(dl.party) %></td>
+              <td class="text-sm text-gray-500"><%= fecha(dl.starts_on) %></td>
+              <td class="text-sm"><%= fecha(dl.due_on) %></td>
+              <td><%= status_badge(dl.status, :deadline) %></td>
+              <td><%= dias_restantes_tag(dl) %></td>
+              <td><%= priority_badge(dl.priority) %></td>
+              <td class="text-right">
+                <div class="flex items-center gap-1 justify-end">
+                  <% if dl.pendiente? %>
+                    <%= button_to mark_completed_deadline_path(dl), method: :patch, class: "btn btn-success btn-sm", title: "Marcar cumplido" do %>✓<% end %>
+                    <%= button_to mark_expired_deadline_path(dl), method: :patch, class: "btn btn-danger btn-sm", title: "Marcar vencido", data: { turbo_confirm: "¿Marcar como vencido?" } do %>✗<% end %>
+                  <% end %>
+                  <%= link_to "✎", edit_deadline_path(dl), class: "btn btn-secondary btn-sm", title: "Editar" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="empty-state">
+        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="empty-state-title">Sin plazos</p>
+        <p class="empty-state-text">No hay plazos con este filtro.</p>
+      </div>
+    <% end %>
+  </div>
+  <% if @pagy && @pagy.pages > 1 %>
+    <div class="px-6 py-3 border-t border-gray-100">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include StudioScoped
+  # NO incluir StudioScoped — Devise necesita buscar users globalmente para autenticar.
+  # La relación con Studio se maneja manualmente.
+  belongs_to :studio
 
   # === Devise ===
   devise :database_authenticatable, :registerable,

@@ -1,0 +1,16 @@
+Hola <%= @user.first_name %>,
+
+Te recordamos que hay un plazo próximo a vencer asignado a ti o a tu estudio.
+
+Expediente: <%= @expediente.caratula %> (<%= @expediente.numero_causa %>)
+Plazo: <%= @deadline.title %>
+Vencimiento: <%= l(@deadline.due_on, format: :long) %> (<%= @deadline.dias_restantes %> días restantes)
+<% if @deadline.description.present? %>
+Detalle: <%= @deadline.description %>
+<% end %>
+
+Recuerda marcarlo como cumplido en el sistema una vez gestionado.
+Ir al expediente: <%= expediente_url(@expediente) %>
+
+Atentamente,
+El equipo de Open Doctor

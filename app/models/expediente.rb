@@ -13,6 +13,7 @@ class Expediente < ApplicationRecord
   has_many :procedural_instances, dependent: :destroy
   has_many :deadlines, dependent: :destroy
   has_many :movements, dependent: :destroy
+  has_many_attached :documents
 
   # === Validaciones ===
   validates :caratula, presence: true
@@ -20,6 +21,15 @@ class Expediente < ApplicationRecord
 
   # === PaperTrail ===
   has_paper_trail
+
+  # === Ransack ===
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[caratula numero_causa status fuero jurisdiccion materia tipo_proceso parte]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[client assigned_to deadlines movements]
+  end
 
   # === Scopes ===
   scope :activos, -> { where(status: [:activo, :en_tramite]) }

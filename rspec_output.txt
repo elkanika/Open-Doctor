@@ -1,0 +1,219 @@
+D:/Ruby34-x64/lib/ruby/3.4.0/win32/registry.rb:2: warning: D:/Ruby34-x64/lib/ruby/3.4.0/fiddle/import.rb is found in fiddle, which will no longer be part of the default gems starting from Ruby 3.5.0.
+You can add fiddle to your Gemfile or gemspec to silence this warning.
+      PaperTrail 16.0.0 is not compatible with ActiveRecord 8.1.2. We allow PT
+      contributors to install incompatible versions of ActiveRecord, and this
+      warning can be silenced with an environment variable, but this is a bad
+      idea for normal use. Please install a compatible version of ActiveRecord
+      instead (>= 6.1, < 8.1). Please see the discussion in paper_trail/compatibility.rb
+      for details.
+..FFF..F...F......F.F.......F.FF...F....FF
+
+Failures:
+
+  1) Client validations is expected to validate that :document_type cannot be empty/falsy
+     Failure/Error: it { should validate_presence_of(:document_type) }
+
+       Expected Client to validate that :document_type cannot be empty/falsy,
+       but this could not be proved.
+         After setting :document_type to ÔÇ╣""ÔÇ║, the matcher expected the Client
+         to be invalid, placing a validation error on :document_type. The
+         Example was invalid, but it had errors involving other attributes:
+
+         * studio: ["obligatorio"]
+         * first_name: ["no puede estar en blanco"]
+         * last_name: ["no puede estar en blanco"]
+     # ./spec/models/client_spec.rb:7:in 'block (3 levels) in <top (required)>'
+
+  2) Client validations is expected to validate that :document_number cannot be empty/falsy
+     Failure/Error: it { should validate_presence_of(:document_number) }
+
+       Expected Client to validate that :document_number cannot be empty/falsy,
+       but this could not be proved.
+         After setting :document_number to ÔÇ╣""ÔÇ║, the matcher expected the
+         Client to be invalid, placing a validation error on :document_number.
+         The Example was invalid, but it had errors involving other attributes:
+
+         * studio: ["obligatorio"]
+         * first_name: ["no puede estar en blanco"]
+         * last_name: ["no puede estar en blanco"]
+     # ./spec/models/client_spec.rb:8:in 'block (3 levels) in <top (required)>'
+
+  3) Client validations uniqueness scoped to studio 
+     Failure/Error: email { Faker::Internet.email }
+
+     I18n::MissingTranslationData:
+       Translation missing: en.faker.internet.safe_domain_suffix
+     # ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+     # ./spec/models/client_spec.rb:11:in 'block (4 levels) in <top (required)>'
+     # ./spec/models/client_spec.rb:12:in 'block (4 levels) in <top (required)>'
+     # ------------------
+     # --- Caused by: ---
+     # I18n::MissingTranslationData:
+     #   Translation missing: en.faker.internet.safe_domain_suffix
+     #   ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+
+  4) Client#full_name returns the formatted full name
+     Failure/Error: email { Faker::Internet.email }
+
+     I18n::MissingTranslationData:
+       Translation missing: en.faker.internet.safe_domain_suffix
+     # ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+     # ./spec/models/client_spec.rb:23:in 'block (3 levels) in <top (required)>'
+     # ------------------
+     # --- Caused by: ---
+     # I18n::MissingTranslationData:
+     #   Translation missing: en.faker.internet.safe_domain_suffix
+     #   ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+
+  5) Deadline validations is expected to validate that :priority cannot be empty/falsy
+     Failure/Error: it { should validate_presence_of(:priority) }
+
+       Expected Deadline to validate that :priority cannot be empty/falsy, but
+       this could not be proved.
+         After setting :priority to ÔÇ╣nilÔÇ║, the matcher expected the Deadline to
+         be invalid, placing a validation error on :priority. The Example was
+         invalid, but it had errors involving other attributes:
+
+         * studio: ["obligatorio"]
+         * expediente: ["obligatorio"]
+         * title: ["no puede estar en blanco"]
+         * due_on: ["no puede estar en blanco"]
+     # ./spec/models/deadline_spec.rb:8:in 'block (3 levels) in <main>'
+
+  6) Deadline scopes and states identifies vencidos (expired deadlines)
+     Failure/Error: email { Faker::Internet.email }
+
+     I18n::MissingTranslationData:
+       Translation missing: en.faker.internet.safe_domain_suffix
+     # ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+     # ./spec/models/deadline_spec.rb:21:in 'block (3 levels) in <main>'
+     # ./spec/models/deadline_spec.rb:26:in 'block (3 levels) in <main>'
+     # ------------------
+     # --- Caused by: ---
+     # I18n::MissingTranslationData:
+     #   Translation missing: en.faker.internet.safe_domain_suffix
+     #   ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+
+  7) Expediente validations is expected to validate that :numero_causa cannot be empty/falsy
+     Failure/Error: it { should validate_presence_of(:numero_causa) }
+
+       Expected Expediente to validate that :numero_causa cannot be
+       empty/falsy, but this could not be proved.
+         After setting :numero_causa to ÔÇ╣""ÔÇ║, the matcher expected the
+         Expediente to be invalid, placing a validation error on :numero_causa.
+         The Example was invalid, but it had errors involving other attributes:
+
+         * studio: ["obligatorio"]
+         * client: ["obligatorio"]
+         * caratula: ["no puede estar en blanco"]
+     # ./spec/models/expediente_spec.rb:6:in 'block (3 levels) in <main>'
+
+  8) Expediente enums is expected to define :status as an enum backed by an integer with values ÔÇ╣{en_tramite: 0, paralizado: 1, concluido: 2, archivado: 3, mediacion: 4, conciliacion: 5}ÔÇ║
+     Failure/Error:
+       it { should define_enum_for(:status).with_values(
+         en_tramite: 0,
+         paralizado: 1,
+         concluido: 2,
+         archivado: 3,
+         mediacion: 4,
+         conciliacion: 5
+       ) }
+
+       Expected Expediente to define :status as an enum backed by an integer,
+       mapping ÔÇ╣"en_tramite"ÔÇ║ to ÔÇ╣0ÔÇ║, ÔÇ╣"paralizado"ÔÇ║ to ÔÇ╣1ÔÇ║, ÔÇ╣"concluido"ÔÇ║ to
+       ÔÇ╣2ÔÇ║, ÔÇ╣"archivado"ÔÇ║ to ÔÇ╣3ÔÇ║, ÔÇ╣"mediacion"ÔÇ║ to ÔÇ╣4ÔÇ║, and ÔÇ╣"conciliacion"ÔÇ║ to
+       ÔÇ╣5ÔÇ║. However, :status actually maps ÔÇ╣"activo"ÔÇ║ to ÔÇ╣0ÔÇ║, ÔÇ╣"en_tramite"ÔÇ║ to
+       ÔÇ╣1ÔÇ║, ÔÇ╣"paralizado"ÔÇ║ to ÔÇ╣2ÔÇ║, ÔÇ╣"archivado"ÔÇ║ to ÔÇ╣3ÔÇ║, and ÔÇ╣"finalizado"ÔÇ║ to
+       ÔÇ╣4ÔÇ║.
+     # ./spec/models/expediente_spec.rb:20:in 'block (3 levels) in <main>'
+
+  9) Studio validations is expected to validate that :slug is case-insensitively unique
+     Failure/Error: it { should validate_uniqueness_of(:slug).case_insensitive }
+
+     Shoulda::Matchers::ActiveRecord::ValidateUniquenessOfMatcher::ExistingRecordInvalid:
+       validate_uniqueness_of works by matching a new record against an
+       existing record. If there is no existing record, it will create one
+       using the record you provide.
+
+       While doing this, the following error was raised:
+
+         PG::NotNullViolation: ERROR:  null value in column "name" of relation "studios" violates not-null constraint
+         DETAIL:  Failing row contains (1, null, 2026-02-28 22:05:41.831225, null, null, null, {}, null, free, null, Buenos Aires, 2026-02-28 22:05:41.831225).
+
+       The best way to fix this is to provide the matcher with a record where
+       any required attributes are filled in with valid values beforehand.
+     # ./spec/models/studio_spec.rb:6:in 'block (3 levels) in <main>'
+     # ------------------
+     # --- Caused by: ---
+     # PG::NotNullViolation:
+     #   ERROR:  null value in column "name" of relation "studios" violates not-null constraint
+     #   DETAIL:  Failing row contains (1, null, 2026-02-28 22:05:41.831225, null, null, null, {}, null, free, null, Buenos Aires, 2026-02-28 22:05:41.831225).
+     #   ./spec/models/studio_spec.rb:6:in 'block (3 levels) in <main>'
+
+  10) Studio validations is expected to validate that :timezone cannot be empty/falsy
+      Failure/Error: it { should validate_presence_of(:timezone) }
+
+        Expected Studio to validate that :timezone cannot be empty/falsy, but
+        this could not be proved.
+          After setting :timezone to ÔÇ╣""ÔÇ║, the matcher expected the Studio to be
+          invalid, placing a validation error on :timezone. The Example was
+          invalid, but it had errors involving other attributes:
+
+          * name: ["no puede estar en blanco"]
+          * slug: ["no puede estar en blanco"]
+      # ./spec/models/studio_spec.rb:7:in 'block (3 levels) in <main>'
+
+  11) Studio callbacks generates a slug before validation if name is present and slug is blank
+      Failure/Error: email { Faker::Internet.email }
+
+      I18n::MissingTranslationData:
+        Translation missing: en.faker.internet.safe_domain_suffix
+      # ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+      # ./spec/models/studio_spec.rb:18:in 'block (3 levels) in <main>'
+      # ------------------
+      # --- Caused by: ---
+      # I18n::MissingTranslationData:
+      #   Translation missing: en.faker.internet.safe_domain_suffix
+      #   ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+
+  12) User enums is expected to define :role as an enum backed by an integer with values ÔÇ╣{titular: 0, abogado: 1, administrativo: 2, colaborador: 3}ÔÇ║
+      Failure/Error: it { should define_enum_for(:role).with_values(titular: 0, abogado: 1, administrativo: 2, colaborador: 3) }
+
+        Expected User to define :role as an enum backed by an integer, mapping
+        ÔÇ╣"titular"ÔÇ║ to ÔÇ╣0ÔÇ║, ÔÇ╣"abogado"ÔÇ║ to ÔÇ╣1ÔÇ║, ÔÇ╣"administrativo"ÔÇ║ to ÔÇ╣2ÔÇ║, and
+        ÔÇ╣"colaborador"ÔÇ║ to ÔÇ╣3ÔÇ║. However, :role actually maps ÔÇ╣"titular"ÔÇ║ to ÔÇ╣0ÔÇ║,
+        ÔÇ╣"colaborador"ÔÇ║ to ÔÇ╣1ÔÇ║, and ÔÇ╣"administrativo"ÔÇ║ to ÔÇ╣2ÔÇ║.
+      # ./spec/models/user_spec.rb:15:in 'block (3 levels) in <main>'
+
+  13) User#full_name returns the users first and last name concatenated
+      Failure/Error: email { Faker::Internet.email }
+
+      I18n::MissingTranslationData:
+        Translation missing: en.faker.internet.safe_domain_suffix
+      # ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+      # ./spec/models/user_spec.rb:20:in 'block (3 levels) in <main>'
+      # ------------------
+      # --- Caused by: ---
+      # I18n::MissingTranslationData:
+      #   Translation missing: en.faker.internet.safe_domain_suffix
+      #   ./spec/factories/studios.rb:4:in 'block (3 levels) in <main>'
+
+Finished in 3.18 seconds (files took 18.47 seconds to load)
+42 examples, 13 failures
+
+Failed examples:
+
+rspec ./spec/models/client_spec.rb:7 # Client validations is expected to validate that :document_type cannot be empty/falsy
+rspec ./spec/models/client_spec.rb:8 # Client validations is expected to validate that :document_number cannot be empty/falsy
+rspec ./spec/models/client_spec.rb:12 # Client validations uniqueness scoped to studio 
+rspec ./spec/models/client_spec.rb:22 # Client#full_name returns the formatted full name
+rspec ./spec/models/deadline_spec.rb:8 # Deadline validations is expected to validate that :priority cannot be empty/falsy
+rspec ./spec/models/deadline_spec.rb:25 # Deadline scopes and states identifies vencidos (expired deadlines)
+rspec ./spec/models/expediente_spec.rb:6 # Expediente validations is expected to validate that :numero_causa cannot be empty/falsy
+rspec ./spec/models/expediente_spec.rb:20 # Expediente enums is expected to define :status as an enum backed by an integer with values ÔÇ╣{en_tramite: 0, paralizado: 1, concluido: 2, archivado: 3, mediacion: 4, conciliacion: 5}ÔÇ║
+rspec ./spec/models/studio_spec.rb:6 # Studio validations is expected to validate that :slug is case-insensitively unique
+rspec ./spec/models/studio_spec.rb:7 # Studio validations is expected to validate that :timezone cannot be empty/falsy
+rspec ./spec/models/studio_spec.rb:17 # Studio callbacks generates a slug before validation if name is present and slug is blank
+rspec ./spec/models/user_spec.rb:15 # User enums is expected to define :role as an enum backed by an integer with values ÔÇ╣{titular: 0, abogado: 1, administrativo: 2, colaborador: 3}ÔÇ║
+rspec ./spec/models/user_spec.rb:19 # User#full_name returns the users first and last name concatenated
+

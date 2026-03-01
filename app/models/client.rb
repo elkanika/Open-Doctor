@@ -5,6 +5,7 @@ class Client < ApplicationRecord
 
   # === Asociaciones ===
   has_many :expedientes, dependent: :restrict_with_error
+  has_many_attached :documents
 
   # === Validaciones ===
   validates :first_name, presence: true
@@ -13,6 +14,15 @@ class Client < ApplicationRecord
 
   # === PaperTrail ===
   has_paper_trail
+
+  # === Ransack ===
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[first_name last_name document_number email phone]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[expedientes]
+  end
 
   # === Métodos ===
   def full_name

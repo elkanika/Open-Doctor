@@ -1,0 +1,20 @@
+<p>Hola <%= @user.first_name %>,</p>
+
+<p>Te recordamos que hay un plazo próximo a vencer asignado a ti o a tu estudio.</p>
+
+<div style="border-left: 4px solid #f59e0b; padding-left: 1rem; margin: 1rem 0; background: #fffbeb; padding: 1rem;">
+  <p><strong>Expediente:</strong> <%= @expediente.caratula %> (<%= @expediente.numero_causa %>)</p>
+  <p><strong>Plazo:</strong> <%= @deadline.title %></p>
+  <p><strong>Vencimiento:</strong> <span style="color: #dc2626; font-weight: bold;"><%= l(@deadline.due_on, format: :long) %></span> (<%= @deadline.dias_restantes %> días restantes)</p>
+  <% if @deadline.description.present? %>
+    <p><strong>Detalle:</strong> <%= @deadline.description %></p>
+  <% end %>
+</div>
+
+<p>Por favor, recuerda marcarlo como cumplido en el sistema una vez gestionado.</p>
+
+<p>
+  <a href="<%= expediente_url(@expediente) %>" style="display: inline-block; padding: 10px 20px; background-color: #2563eb; color: white; text-decoration: none; border-radius: 5px;">Ir al Expediente</a>
+</p>
+
+<p>Atentamente,<br>El equipo de Open Doctor</p>

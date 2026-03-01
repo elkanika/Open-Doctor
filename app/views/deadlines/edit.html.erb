@@ -1,0 +1,17 @@
+<% content_for(:page_title, "Editar plazo") %>
+<% expediente = @deadline.expediente %>
+
+<div class="max-w-2xl">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Editar plazo</h1>
+      <p class="page-subtitle"><%= link_to expediente.caratula.truncate(60), expediente, class: "text-primary-600 hover:underline" %></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <%= render "form", deadline: @deadline %>
+    </div>
+  </div>
+</div>

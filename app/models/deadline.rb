@@ -24,6 +24,15 @@ class Deadline < ApplicationRecord
   # === PaperTrail ===
   has_paper_trail
 
+  # === Ransack ===
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title status party priority due_on starts_on expediente_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[expediente procedural_act parent_deadline sub_deadlines]
+  end
+
   # === Scopes ===
   scope :pendientes, -> { where(status: :pendiente) }
   scope :propios, -> { where(party: :propio) }
@@ -32,6 +41,11 @@ class Deadline < ApplicationRecord
   scope :proximos, ->(days = 7) { pendientes.where(due_on: ..days.days.from_now.to_date) }
   scope :urgentes, -> { where(priority: :urgente) }
   scope :by_due_date, -> { order(due_on: :asc) }
+
+  # === Simple Calendar ===
+  def start_time
+    due_on
+  end
 
   # === Métodos ===
   def vencido?

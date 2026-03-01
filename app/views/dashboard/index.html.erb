@@ -1,0 +1,127 @@
+<% content_for(:page_title, "Dashboard") %>
+<% content_for(:page_subtitle, "Resumen de actividad del estudio") %>
+
+<%# Metric Cards %>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div class="metric-card">
+    <div class="metric-icon bg-blue-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    </div>
+    <div>
+      <p class="metric-value"><%= @expedientes_activos %></p>
+      <p class="metric-label">Expedientes activos</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon bg-amber-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <div>
+      <p class="metric-value"><%= @plazos_pendientes %></p>
+      <p class="metric-label">Plazos pendientes</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon bg-red-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+    </div>
+    <div>
+      <p class="metric-value"><%= @plazos_vencidos %></p>
+      <p class="metric-label">Plazos vencidos</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon bg-emerald-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </div>
+    <div>
+      <p class="metric-value"><%= @clientes_total %></p>
+      <p class="metric-label">Clientes</p>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <%# Plazos próximos %>
+  <div class="lg:col-span-2 card">
+    <div class="card-header">
+      <h2 class="text-lg font-semibold text-gray-900">Plazos próximos</h2>
+      <%= link_to "Ver todos →", deadlines_path, class: "text-sm text-primary-600 hover:text-primary-700 font-medium" %>
+    </div>
+    <div class="card-body p-0">
+      <% if @plazos_proximos.any? %>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Plazo</th>
+                <th>Expediente</th>
+                <th>Vencimiento</th>
+                <th>Restante</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @plazos_proximos.each do |deadline| %>
+                <tr>
+                  <td class="!px-2 !py-3"><%= priority_bar(deadline.priority) %></td>
+                  <td>
+                    <p class="font-medium text-sm max-w-[200px] truncate" title="<%= deadline.title %>"><%= deadline.title %></p>
+                    <p class="text-xs text-gray-500 mt-0.5"><%= party_badge(deadline.party) %></p>
+                  </td>
+                  <td class="text-sm">
+                    <%= link_to deadline.expediente.caratula.truncate(40), deadline.expediente, class: "text-primary-600 hover:underline max-w-[200px] truncate block", title: deadline.expediente.caratula %>
+                  </td>
+                  <td class="text-sm whitespace-nowrap"><%= fecha(deadline.due_on) %></td>
+                  <td class="whitespace-nowrap"><%= dias_restantes_tag(deadline) %></td>
+                  <td>
+                    <%= button_to "✓", mark_completed_deadline_path(deadline), method: :patch, class: "btn btn-success btn-sm", title: "Marcar cumplido" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <p class="empty-state-title">Sin plazos pendientes</p>
+          <p class="empty-state-text">¡Todos los plazos están al día!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Expedientes recientes %>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-lg font-semibold text-gray-900">Expedientes recientes</h2>
+      <%= link_to "Ver todos →", expedientes_path, class: "text-sm text-primary-600 hover:text-primary-700 font-medium" %>
+    </div>
+    <div class="card-body p-0">
+      <% if @expedientes_recientes.any? %>
+        <div class="divide-y divide-gray-100">
+          <% @expedientes_recientes.each do |exp| %>
+            <div class="px-6 py-3 hover:bg-gray-50">
+              <%= link_to exp, class: "block" do %>
+                <p class="text-sm font-medium text-gray-900 truncate"><%= exp.caratula.truncate(45) %></p>
+                <div class="flex items-center gap-2 mt-1">
+                  <%= status_badge(exp.status) %>
+                  <span class="text-xs text-gray-500"><%= exp.client.full_name %></span>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <p class="empty-state-title">Sin expedientes</p>
+          <p class="empty-state-text"><%= link_to "Crear el primero →", new_expediente_path, class: "text-primary-600" %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<%= form_with(model: expediente, class: "space-y-6") do |f| %>
+  <% if expediente.errors.any? %>
+    <div class="flash flash-alert">
+      <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      <div>
+        <p class="font-medium"><%= pluralize(expediente.errors.count, "error") %> impidieron guardar:</p>
+        <ul class="list-disc list-inside mt-1 text-sm">
+          <% expediente.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend class="text-sm font-semibold text-gray-900 mb-3">Datos de la causa</legend>
+    <div class="space-y-4">
+      <div class="form-group">
+        <%= f.label :caratula, "Carátula", class: "form-label" %>
+        <%= f.text_field :caratula, class: "form-input", required: true, placeholder: "Ej: García c/ López s/ daños y perjuicios" %>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="form-group">
+          <%= f.label :client_id, "Cliente", class: "form-label" %>
+          <%= f.collection_select :client_id, Client.order(:last_name), :id, :full_name, { prompt: "Seleccionar cliente..." }, class: "form-select", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :assigned_to_id, "Abogado asignado", class: "form-label" %>
+          <%= f.collection_select :assigned_to_id, User.order(:last_name), :id, :full_name, { prompt: "Sin asignar" }, class: "form-select" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="form-group">
+          <%= f.label :numero_causa, "Nº de causa", class: "form-label" %>
+          <%= f.text_field :numero_causa, class: "form-input", placeholder: "CNV 12345/2025" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :juzgado, "Juzgado", class: "form-label" %>
+          <%= f.text_field :juzgado, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :fecha_inicio, "Fecha de inicio", class: "form-label" %>
+          <%= f.date_field :fecha_inicio, class: "form-input" %>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="text-sm font-semibold text-gray-900 mb-3">Clasificación</legend>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="form-group">
+        <%= f.label :fuero, "Fuero", class: "form-label" %>
+        <%= f.select :fuero, options_for_select([["Civil", "civil"], ["Penal", "penal"], ["Laboral", "laboral"], ["Comercial", "comercial"], ["Contencioso Administrativo", "contencioso_administrativo"], ["Familia", "familia"]], expediente.fuero), { prompt: "Seleccionar..." }, class: "form-select" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :jurisdiccion, "Jurisdicción", class: "form-label" %>
+        <%= f.select :jurisdiccion, options_for_select([["Nacional", "Nacional"], ["Provincial", "Provincial"], ["Federal", "Federal"]], expediente.jurisdiccion), {}, class: "form-select" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :status, "Estado", class: "form-label" %>
+        <%= f.select :status, options_for_select([["Activo", "activo"], ["En trámite", "en_tramite"], ["Paralizado", "paralizado"], ["Archivado", "archivado"], ["Finalizado", "finalizado"]], expediente.status), {}, class: "form-select" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="form-group">
+        <%= f.label :tipo_proceso, "Tipo de proceso", class: "form-label" %>
+        <%= f.text_field :tipo_proceso, class: "form-input", placeholder: "Ordinario, sumarísimo, ejecutivo..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :materia, "Materia", class: "form-label" %>
+        <%= f.text_field :materia, class: "form-input", placeholder: "Daños, familia, laboral..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :parte, "Parte que representamos", class: "form-label" %>
+        <%= f.select :parte, options_for_select([["Actor", "actor"], ["Demandado", "demandado"]], expediente.parte), {}, class: "form-select" %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="text-sm font-semibold text-gray-900 mb-3">Montos</legend>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="form-group">
+        <%= f.label :monto_reclamado, "Monto reclamado", class: "form-label" %>
+        <%= f.number_field :monto_reclamado, class: "form-input", step: 0.01, min: 0 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :moneda, "Moneda", class: "form-label" %>
+        <%= f.select :moneda, options_for_select([["Pesos (ARS)", "ARS"], ["Dólares (USD)", "USD"]], expediente.moneda), {}, class: "form-select" %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group">
+    <%= f.label :descripcion, "Descripción", class: "form-label" %>
+    <%= f.text_area :descripcion, class: "form-textarea", rows: 3, placeholder: "Descripción general del caso..." %>
+  </div>
+
+  <fieldset>
+    <legend class="text-sm font-semibold text-gray-900 mb-3">Documentos Adjuntos</legend>
+    <div class="form-group">
+      <%= f.label :documents, "Seleccionar archivos", class: "form-label" %>
+      <%= f.file_field :documents, multiple: true, class: "form-input" %>
+      <p class="mt-1 text-sm text-gray-500">Puedes adjuntar PDFs, imágenes, documentos de Word, etc.</p>
+    </div>
+  </fieldset>
+
+  <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+    <%= f.submit expediente.persisted? ? "Actualizar expediente" : "Crear expediente", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", expediente.persisted? ? expediente_path(expediente) : expedientes_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,66 @@
+D:/Ruby34-x64/lib/ruby/3.4.0/win32/registry.rb:2: warning: D:/Ruby34-x64/lib/ruby/3.4.0/fiddle/import.rb is found in fiddle, which will no longer be part of the default gems starting from Ruby 3.5.0.
+You can add fiddle to your Gemfile or gemspec to silence this warning.
+      PaperTrail 16.0.0 is not compatible with ActiveRecord 8.1.2. We allow PT
+      contributors to install incompatible versions of ActiveRecord, and this
+      warning can be silenced with an environment variable, but this is a bad
+      idea for normal use. Please install a compatible version of ActiveRecord
+      instead (>= 6.1, < 8.1). Please see the discussion in paper_trail/compatibility.rb
+      for details.
+DEPRECATION WARNING: resource received a hash argument only. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument path. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument path_names. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+DEPRECATION WARNING: resource received a hash argument controller. Please use a keyword instead. Support to hash argument will be removed in Rails 8.2. (called from block in <main> at D:/coding/open-doctor/config/routes.rb:4)
+*FF..........................................
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) CheckUpcomingDeadlinesJob add some examples to (or delete) D:/coding/open-doctor/spec/jobs/check_upcoming_deadlines_job_spec.rb
+     # Not yet implemented
+     # ./spec/jobs/check_upcoming_deadlines_job_spec.rb:4
+
+Failures:
+
+  1) DeadlineMailer upcoming_deadline_alert renders the headers
+     Failure/Error:
+       def upcoming_deadline_alert(deadline, user)
+         @deadline = deadline
+         @user = user
+         @expediente = deadline.expediente
+         
+         mail(
+           to: user.email,
+           subject: "Aviso de Vencimiento: #{@deadline.title} [#{@expediente.caratula}]"
+         )
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 0, expected 2)
+     # ./app/mailers/deadline_mailer.rb:7:in 'upcoming_deadline_alert'
+     # ./spec/mailers/deadline_mailer_spec.rb:8:in 'block (3 levels) in <main>'
+
+  2) DeadlineMailer upcoming_deadline_alert renders the body
+     Failure/Error:
+       def upcoming_deadline_alert(deadline, user)
+         @deadline = deadline
+         @user = user
+         @expediente = deadline.expediente
+         
+         mail(
+           to: user.email,
+           subject: "Aviso de Vencimiento: #{@deadline.title} [#{@expediente.caratula}]"
+         )
+       end
+
+     ArgumentError:
+       wrong number of arguments (given 0, expected 2)
+     # ./app/mailers/deadline_mailer.rb:7:in 'upcoming_deadline_alert'
+     # ./spec/mailers/deadline_mailer_spec.rb:14:in 'block (3 levels) in <main>'
+
+Finished in 2.87 seconds (files took 16.4 seconds to load)
+45 examples, 2 failures, 1 pending
+
+Failed examples:
+
+rspec ./spec/mailers/deadline_mailer_spec.rb:7 # DeadlineMailer upcoming_deadline_alert renders the headers
+rspec ./spec/mailers/deadline_mailer_spec.rb:13 # DeadlineMailer upcoming_deadline_alert renders the body
+

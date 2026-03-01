@@ -1,0 +1,416 @@
+@import "tailwindcss";
+
+/* Google Font Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* === Custom Theme === */
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  --color-sidebar: #0f172a;
+  --color-sidebar-hover: #1e293b;
+  --color-sidebar-active: #1e3a5f;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* === Base Styles === */
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* === Sidebar === */
+.sidebar {
+  @apply fixed left-0 top-0 bottom-0 w-64 text-white flex flex-col z-30;
+  background-color: var(--color-sidebar);
+}
+
+.sidebar-logo {
+  @apply px-6 py-5 flex items-center gap-3;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav {
+  @apply flex-1 py-4 overflow-y-auto;
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 px-6 py-3 text-sm text-gray-300 transition-colors duration-150;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-sidebar-hover);
+  @apply text-white;
+}
+
+.sidebar-link.active {
+  background-color: var(--color-sidebar-active);
+  @apply text-white;
+  border-right: 2px solid var(--color-primary-400);
+}
+
+.sidebar-section {
+  @apply px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider;
+}
+
+/* === Main Content === */
+.main-content {
+  @apply ml-64 min-h-screen;
+}
+
+.main-header {
+  @apply bg-white px-8 py-4 flex items-center justify-between sticky top-0 z-20;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.main-body {
+  @apply px-8 py-6;
+}
+
+/* === Cards === */
+.card {
+  @apply bg-white rounded-xl shadow-sm;
+  border: 1px solid #e5e7eb;
+}
+
+.card-header {
+  @apply px-6 py-4 flex items-center justify-between;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.card-body {
+  @apply px-6 py-4;
+}
+
+/* === Badges === */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-success {
+  @apply bg-emerald-100 text-emerald-800;
+}
+
+.badge-warning {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-800;
+}
+
+.badge-info {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.badge-gray {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.badge-purple {
+  @apply bg-purple-100 text-purple-800;
+}
+
+/* === Buttons === */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer;
+  transition: all 150ms;
+}
+
+.btn:focus {
+  @apply outline-none ring-2 ring-offset-2;
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.btn-primary {
+  @apply bg-primary-600 text-white shadow-sm;
+
+  &:hover {
+    @apply bg-primary-700;
+  }
+
+  &:focus {
+    @apply ring-primary-500;
+  }
+}
+
+.btn-secondary {
+  @apply bg-white text-gray-700;
+  border: 1px solid #d1d5db;
+
+  &:hover {
+    @apply bg-gray-50;
+  }
+
+  &:focus {
+    @apply ring-primary-500;
+  }
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white shadow-sm;
+
+  &:hover {
+    @apply bg-red-700;
+  }
+
+  &:focus {
+    @apply ring-red-500;
+  }
+}
+
+.btn-success {
+  @apply bg-emerald-600 text-white shadow-sm;
+
+  &:hover {
+    @apply bg-emerald-700;
+  }
+
+  &:focus {
+    @apply ring-emerald-500;
+  }
+}
+
+.btn-sm {
+  @apply px-3 py-1.5 text-xs;
+}
+
+.btn-icon {
+  @apply p-2 rounded-lg text-gray-400;
+
+  &:hover {
+    @apply text-gray-600 bg-gray-100;
+  }
+}
+
+/* === Forms === */
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-input {
+  @apply w-full rounded-lg shadow-sm text-sm px-3 py-2;
+  border: 1px solid #d1d5db;
+
+  &:focus {
+    @apply border-primary-500 ring-primary-500;
+  }
+}
+
+.form-select {
+  @apply w-full rounded-lg shadow-sm text-sm px-3 py-2;
+  border: 1px solid #d1d5db;
+
+  &:focus {
+    @apply border-primary-500 ring-primary-500;
+  }
+}
+
+.form-textarea {
+  @apply w-full rounded-lg shadow-sm text-sm px-3 py-2;
+  border: 1px solid #d1d5db;
+
+  &:focus {
+    @apply border-primary-500 ring-primary-500;
+  }
+}
+
+.form-error {
+  @apply text-red-600 text-xs mt-1;
+}
+
+/* === Tables === */
+.table-container {
+  @apply overflow-x-auto;
+}
+
+.data-table {
+  @apply min-w-full;
+}
+
+.data-table thead {
+  @apply bg-gray-50;
+}
+
+.data-table th {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.data-table td {
+  @apply px-6 py-4 text-sm text-gray-900 whitespace-nowrap;
+}
+
+.data-table tbody tr {
+  @apply transition-colors;
+}
+
+.data-table tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+.data-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* === Flash Messages === */
+.flash {
+  @apply rounded-lg px-4 py-3 text-sm flex items-center gap-3 shadow-sm;
+}
+
+.flash-notice {
+  @apply bg-emerald-50 text-emerald-800;
+  border: 1px solid #a7f3d0;
+}
+
+.flash-alert {
+  @apply bg-red-50 text-red-800;
+  border: 1px solid #fecaca;
+}
+
+.flash-warning {
+  @apply bg-amber-50 text-amber-800;
+  border: 1px solid #fde68a;
+}
+
+/* === Metric Cards === */
+.metric-card {
+  @apply bg-white rounded-xl shadow-sm p-6 flex items-center gap-4;
+  border: 1px solid #e5e7eb;
+}
+
+.metric-icon {
+  @apply w-12 h-12 rounded-xl flex items-center justify-center text-white;
+}
+
+.metric-value {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.metric-label {
+  @apply text-sm text-gray-500;
+}
+
+/* === Page Header === */
+.page-header {
+  @apply flex items-center justify-between mb-6;
+}
+
+.page-title {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.page-subtitle {
+  @apply text-sm text-gray-500 mt-1;
+}
+
+/* === Tabs === */
+.tabs {
+  @apply flex gap-0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tab-link {
+  @apply px-4 py-3 text-sm font-medium text-gray-500 transition-colors;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+
+  &:hover {
+    @apply text-gray-700;
+    border-color: #d1d5db;
+  }
+
+  &.active {
+    @apply text-primary-600;
+    border-color: var(--color-primary-600);
+  }
+}
+
+/* === Empty State === */
+.empty-state {
+  @apply text-center py-12;
+}
+
+.empty-state-icon {
+  @apply mx-auto h-12 w-12 text-gray-400;
+}
+
+.empty-state-title {
+  @apply mt-2 text-sm font-semibold text-gray-900;
+}
+
+.empty-state-text {
+  @apply mt-1 text-sm text-gray-500;
+}
+
+/* === Priority Indicators === */
+.priority-bar {
+  @apply w-1 rounded-full self-stretch;
+}
+
+.priority-normal {
+  @apply bg-blue-400;
+}
+
+.priority-alta {
+  @apply bg-amber-400;
+}
+
+.priority-urgente {
+  @apply bg-red-500;
+}
+
+/* === Deadline countdown === */
+.countdown-danger {
+  @apply text-red-600 font-semibold;
+}
+
+.countdown-warning {
+  @apply text-amber-600 font-medium;
+}
+
+.countdown-ok {
+  @apply text-gray-600;
+}
+
+/* === Auth pages === */
+.auth-container {
+  @apply min-h-screen flex items-center justify-center;
+  background: linear-gradient(135deg, var(--color-primary-900), var(--color-primary-800), #0f172a);
+}
+
+.auth-card {
+  @apply bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md;
+}
+
+.auth-title {
+  @apply text-2xl font-bold text-gray-900 text-center mb-2;
+}
+
+.auth-subtitle {
+  @apply text-sm text-gray-500 text-center mb-8;
+}

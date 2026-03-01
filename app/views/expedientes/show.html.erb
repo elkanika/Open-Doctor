@@ -1,0 +1,195 @@
+<% content_for(:page_title, @expediente.caratula.truncate(40)) %>
+
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= @expediente.caratula %></h1>
+    <p class="page-subtitle"><%= @expediente.numero_causa %> · <%= @expediente.juzgado %></p>
+  </div>
+  <div class="flex items-center gap-2">
+    <%= link_to "Editar", edit_expediente_path(@expediente), class: "btn btn-secondary" %>
+    <%= button_to "Eliminar", expediente_path(@expediente), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "¿Estás seguro de eliminar este expediente?" } %>
+  </div>
+</div>
+
+<%# Info cards %>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="card p-4">
+    <p class="text-xs text-gray-500">Estado</p>
+    <div class="mt-1"><%= status_badge(@expediente.status) %></div>
+  </div>
+  <div class="card p-4">
+    <p class="text-xs text-gray-500">Fuero</p>
+    <p class="text-sm font-medium mt-1"><%= @expediente.fuero&.capitalize || "—" %></p>
+  </div>
+  <div class="card p-4">
+    <p class="text-xs text-gray-500">Parte</p>
+    <p class="text-sm font-medium mt-1"><%= @expediente.parte&.capitalize || "—" %></p>
+  </div>
+  <div class="card p-4">
+    <p class="text-xs text-gray-500">Monto</p>
+    <p class="text-sm font-medium mt-1"><%= moneda(@expediente.monto_reclamado, @expediente.moneda) %></p>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <%# Columna principal: Plazos y Movimientos %>
+  <div class="lg:col-span-2 space-y-6">
+    <%# Plazos %>
+    <div class="card">
+      <div class="card-header">
+        <h2 class="font-semibold">Plazos (<%= @deadlines.size %>)</h2>
+        <%= link_to new_expediente_deadline_path(@expediente), class: "btn btn-primary btn-sm" do %>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Nuevo plazo
+        <% end %>
+      </div>
+      <div class="card-body p-0">
+        <% if @deadlines.any? %>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Plazo</th>
+                <th>Parte</th>
+                <th>Vencimiento</th>
+                <th>Estado</th>
+                <th>Restante</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @deadlines.each do |dl| %>
+                <tr>
+                  <td class="!px-2"><%= priority_bar(dl.priority) %></td>
+                  <td class="font-medium text-sm"><%= dl.title %></td>
+                  <td><%= party_badge(dl.party) %></td>
+                  <td class="text-sm"><%= fecha(dl.due_on) %></td>
+                  <td><%= status_badge(dl.status, :deadline) %></td>
+                  <td><%= dias_restantes_tag(dl) %></td>
+                  <td class="text-right space-x-1">
+                    <% if dl.pendiente? %>
+                      <%= button_to "✓", mark_completed_deadline_path(dl), method: :patch, class: "btn btn-success btn-sm", title: "Cumplido" %>
+                    <% end %>
+                    <%= link_to "✎", edit_deadline_path(dl), class: "btn btn-secondary btn-sm", title: "Editar" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="empty-state">
+            <p class="empty-state-title">Sin plazos</p>
+            <p class="empty-state-text"><%= link_to "Agregar el primero →", new_expediente_deadline_path(@expediente), class: "text-primary-600" %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Movimientos %>
+    <div class="card">
+      <div class="card-header">
+        <h2 class="font-semibold">Últimos movimientos</h2>
+      </div>
+      <div class="card-body p-0">
+        <%# Formulario inline para nuevo movimiento %>
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-100">
+          <%= form_with(model: [@expediente, Movement.new], class: "flex items-end gap-3") do |f| %>
+            <div class="flex-1 form-group !mb-0">
+              <%= f.text_field :title, class: "form-input", placeholder: "Título del movimiento...", required: true %>
+            </div>
+            <div class="form-group !mb-0">
+              <%= f.datetime_local_field :occurred_at, class: "form-input", value: Time.current.strftime("%Y-%m-%dT%H:%M"), required: true %>
+            </div>
+            <%= f.submit "Agregar", class: "btn btn-secondary btn-sm" %>
+          <% end %>
+        </div>
+
+        <% if @movements.any? %>
+          <div class="divide-y divide-gray-100">
+            <% @movements.each do |mov| %>
+              <div class="px-6 py-3">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-medium"><%= mov.title %></p>
+                  <span class="text-xs text-gray-500"><%= fecha(mov.occurred_at) %></span>
+                </div>
+                <% if mov.description.present? %>
+                  <p class="text-xs text-gray-500 mt-1"><%= mov.description %></p>
+                <% end %>
+                <p class="text-xs text-gray-400 mt-1">
+                  <%= mov.movement_type&.capitalize %> · <%= mov.user&.full_name %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="empty-state">
+            <p class="empty-state-text">Sin movimientos registrados aún.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# Sidebar: Datos del expediente %>
+  <div class="space-y-6">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="font-semibold">Datos</h2>
+      </div>
+      <div class="card-body space-y-3">
+        <div>
+          <p class="text-xs text-gray-500">Cliente</p>
+          <p class="text-sm"><%= link_to @expediente.client.full_name, @expediente.client, class: "text-primary-600 hover:underline" %></p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">Abogado asignado</p>
+          <p class="text-sm"><%= @expediente.assigned_to&.full_name || "Sin asignar" %></p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">Jurisdicción</p>
+          <p class="text-sm"><%= @expediente.jurisdiccion %></p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">Tipo de proceso</p>
+          <p class="text-sm"><%= @expediente.tipo_proceso || "—" %></p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">Materia</p>
+          <p class="text-sm"><%= @expediente.materia || "—" %></p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">Fecha de inicio</p>
+          <p class="text-sm"><%= fecha(@expediente.fecha_inicio) %></p>
+        </div>
+        <% if @expediente.descripcion.present? %>
+          <div>
+            <p class="text-xs text-gray-500">Descripción</p>
+            <p class="text-sm text-gray-600"><%= @expediente.descripcion %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @expediente.documents.attached? %>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="font-semibold">Documentos (<%= @expediente.documents.count %>)</h2>
+        </div>
+        <div class="card-body p-0 divide-y divide-gray-100">
+          <% @expediente.documents.each do |doc| %>
+            <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center gap-3 overflow-hidden">
+                <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                <div class="truncate">
+                  <p class="text-sm font-medium text-gray-900 truncate" title="<%= doc.filename %>"><%= doc.filename %></p>
+                  <p class="text-xs text-gray-500"><%= number_to_human_size(doc.byte_size) %></p>
+                </div>
+              </div>
+              <%= link_to "Descargar", rails_blob_path(doc, disposition: "attachment"), class: "text-primary-600 hover:text-primary-800 text-sm font-medium shrink-0 ml-2" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<% content_for(:page_title, "Editar expediente") %>
+
+<div class="max-w-3xl">
+  <div class="page-header">
+    <h1 class="page-title">Editar expediente</h1>
+    <p class="page-subtitle"><%= @expediente.caratula.truncate(60) %></p>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <%= render "form", expediente: @expediente %>
+    </div>
+  </div>
+</div>
