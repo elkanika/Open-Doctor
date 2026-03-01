@@ -48,7 +48,7 @@ gem "pundit", "~> 2.4"          # Autorización basada en políticas
 gem "acts_as_tenant", "~> 1.0"  # Aislamiento de datos por estudio
 
 # === Auditoría ===
-gem "paper_trail", "~> 16.0"    # Log de cambios para auditoría
+gem "paper_trail", "~> 17.0"    # Log de cambios para auditoría
 
 # === Utilidades ===
 gem "pagy", "~> 9.0"            # Paginación eficiente
