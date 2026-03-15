@@ -51,7 +51,7 @@ gem "acts_as_tenant", "~> 1.0"  # Aislamiento de datos por estudio
 gem "paper_trail", "~> 16.0"    # Log de cambios para auditoría
 
 # === Utilidades ===
-gem "pagy", "~> 9.0"            # Paginación eficiente
+gem "pagy", "~> 43.3"           # Paginación eficiente
 gem "ransack", "~> 4.2"         # Búsqueda avanzada en modelos
 
 group :development, :test do
